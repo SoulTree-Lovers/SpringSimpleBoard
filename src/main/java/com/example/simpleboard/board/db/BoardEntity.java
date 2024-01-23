@@ -8,11 +8,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Where;
 
 @Data
 @NoArgsConstructor
@@ -31,5 +33,6 @@ public class BoardEntity {
     @OneToMany(
             mappedBy = "board"
     )
+    @Where(clause = "status = 'REGISTERED'")
     private List<PostEntity> postList = List.of();
 }

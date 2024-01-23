@@ -12,8 +12,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -48,6 +50,9 @@ public class PostEntity {
     private String content;
     private LocalDateTime postedAt;
 
-    @Transient // db의 속성으로 인식하지 않도록 설정
-    private List<ReplyEntity> replyList = List.of();
+//    @Transient // db의 속성으로 인식하지 않도록 설정
+    @OneToMany(
+            mappedBy = "post"
+    )
+    private List<ReplyEntity> replyList = new ArrayList<>();
 }

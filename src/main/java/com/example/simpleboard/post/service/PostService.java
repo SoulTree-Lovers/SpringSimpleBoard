@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 public class PostService {
 
     private final PostRepository postRepository;
-    private final ReplyService replyService;
+//    private final ReplyService replyService;
     private final BoardRepository boardRepository;
 
 
@@ -51,9 +51,9 @@ public class PostService {
                         throw new RuntimeException(String.format(format, postViewRequest.getPassword(), it.getPassword()));
                     }
 
-                    // 답변글도 같이 적용
-                    var replyList = replyService.findAllByPostId(it.getId());
-                    it.setReplyList(replyList);
+//                    // 답변글도 같이 적용
+//                    var replyList = replyService.findAllByPostId(it.getId());
+//                    it.setReplyList(replyList);
 
                     return it;
                 })
