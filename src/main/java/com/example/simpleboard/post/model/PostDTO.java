@@ -1,35 +1,34 @@
-package com.example.simpleboard.board.db;
+package com.example.simpleboard.post.model;
 
-import com.example.simpleboard.post.db.PostEntity;
+import com.example.simpleboard.board.db.BoardEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import jakarta.persistence.Entity;
+import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import java.util.List;
+import jakarta.persistence.ManyToOne;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @JsonNaming(value = PropertyNamingStrategies.SnakeCaseStrategy.class)
-@Entity(name = "board")
-public class BoardEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class PostDTO {
     private Long id;
-    private String boardName;
+    private Long boardId;
+    private String userName;
+    private String password;
+    private String email;
     private String status;
-
-    @OneToMany(
-            mappedBy = "board"
-    )
-    private List<PostEntity> postList = List.of();
+    private String title;
+    private String content;
+    private LocalDateTime postedAt;
 }

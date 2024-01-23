@@ -1,9 +1,9 @@
-package com.example.simpleboard.board.db;
+package com.example.simpleboard.board.model;
 
 import com.example.simpleboard.post.db.PostEntity;
+import com.example.simpleboard.post.model.PostDTO;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,17 +19,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @JsonNaming(value = PropertyNamingStrategies.SnakeCaseStrategy.class)
-@Entity(name = "board")
-public class BoardEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class BoardDTO {
     private Long id;
     private String boardName;
     private String status;
-
-    @OneToMany(
-            mappedBy = "board"
-    )
-    private List<PostEntity> postList = List.of();
+    private List<PostDTO> postList = List.of();
 }
