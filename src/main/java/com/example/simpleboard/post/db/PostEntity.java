@@ -1,11 +1,15 @@
 package com.example.simpleboard.post.db;
 
+import com.example.simpleboard.reply.db.ReplyEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,4 +34,7 @@ public class PostEntity {
     @Column(columnDefinition = "TEXT")
     private String content;
     private LocalDateTime postedAt;
+
+    @Transient // db의 속성으로 인식하지 않도록 설정
+    private List<ReplyEntity> replyList = List.of();
 }

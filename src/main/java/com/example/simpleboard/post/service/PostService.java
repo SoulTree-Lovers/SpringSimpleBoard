@@ -4,6 +4,7 @@ import com.example.simpleboard.post.db.PostEntity;
 import com.example.simpleboard.post.db.PostRepository;
 import com.example.simpleboard.post.model.PostRequest;
 import com.example.simpleboard.post.model.PostViewRequest;
+import com.example.simpleboard.reply.service.ReplyService;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final ReplyService replyService;
 
     public PostEntity create(PostRequest postRequest) {
         var entity = PostEntity.builder()
@@ -42,6 +44,11 @@ public class PostService {
                         String format = "패스워드가 틀렸습니다. (입력받은값: %s, 실제비밀번호: %s)";
                         throw new RuntimeException(String.format(format, postViewRequest.getPassword(), it.getPassword()));
                     }
+
+                    // 답변글도 같이 적용
+                    var replyList = replyService.findAllByPostId(it.getId());
+                    it.setReplyList(replyList);
+
                     return it;
                 })
                 .orElseThrow(
