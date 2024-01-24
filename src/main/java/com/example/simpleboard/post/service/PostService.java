@@ -3,8 +3,10 @@ package com.example.simpleboard.post.service;
 import com.example.simpleboard.board.db.BoardRepository;
 import com.example.simpleboard.common.Api;
 import com.example.simpleboard.common.Pagination;
+import com.example.simpleboard.crud.CRUDAbstractService;
 import com.example.simpleboard.post.db.PostEntity;
 import com.example.simpleboard.post.db.PostRepository;
+import com.example.simpleboard.post.model.PostDTO;
 import com.example.simpleboard.post.model.PostRequest;
 import com.example.simpleboard.post.model.PostViewRequest;
 import java.time.LocalDateTime;
@@ -15,14 +17,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class PostService {
+public class PostService extends CRUDAbstractService<PostDTO, PostEntity> {
 
     private final PostRepository postRepository;
 //    private final ReplyService replyService;
-    private final BoardRepository boardRepository;
+//    private final BoardRepository boardRepository;
 
 
-    public PostEntity create(PostRequest postRequest) {
+    /*public PostEntity create(PostRequest postRequest) {
 
         var boardEntity = boardRepository.findById(postRequest.getBoardId()).get();
 
@@ -38,7 +40,7 @@ public class PostService {
                 .build();
 
         return postRepository.save(entity);
-    }
+    }*/
 
     /** 확인해야 할 사항
      * 1. 게시글이 있는가?
@@ -66,7 +68,7 @@ public class PostService {
                 );
     }
 
-    public Api<List<PostEntity>> all(Pageable pageable) {
+    /*public Api<List<PostEntity>> all(Pageable pageable) {
         var list = postRepository.findAll(pageable);
 
         var pagination = Pagination.builder()
@@ -83,9 +85,9 @@ public class PostService {
                 .build();
 
         return response;
-    }
+    }*/
 
-    public void delete(PostViewRequest postViewRequest) {
+    /*public void delete(PostViewRequest postViewRequest) {
         postRepository.findById(postViewRequest.getPostId())
                 .map(it -> {
                     if (!it.getPassword().equals(postViewRequest.getPassword())) {
@@ -102,5 +104,5 @@ public class PostService {
                             return new RuntimeException("해당 게시글이 존재하지 않습니다: " + postViewRequest.getPostId());
                         }
                 );
-    }
+    }*/
 }
